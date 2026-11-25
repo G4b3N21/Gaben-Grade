@@ -445,7 +445,7 @@
     }).join('');
   }
 
-  // Statistics Modal
+   // Statistics Modal
   function openStatsModal() {
     const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let totalGrades = 0;
@@ -472,22 +472,23 @@
     }
 
     const gradeColors = { 1: 'var(--g1)', 2: 'var(--g2)', 3: 'var(--g3)', 4: 'var(--g4)', 5: 'var(--g5)' };
-    let barsHtml = [1, 2, 3, 4, 5].map(num => {
+    const gradeNumbers =;
+    let barsHtml = gradeNumbers.map(num => {
       const cnt = counts[num];
       const pct = Math.round((cnt / totalGrades) * 100);
       return `
         <div class="stat-row">
-          <span style="width:24px; font-weight:800; color:${gradeColors[num]};">Grade ${num}</span>
+          <span style="width:58px; font-weight:800; color:${gradeColors[num]};">Grade ${num}</span>
           <div class="stat-bar-bg">
             <div class="stat-bar-fill" style="width:${pct}%; background:${gradeColors[num]};"></div>
           </div>
-          <span style="width:55px; text-align:right; font-family:monospace;"><b>${cnt}</b> (${pct}%)</span>
+          <span style="width:65px; text-align:right; font-family:monospace;"><b>${cnt}</b> (${pct}%)</span>
         </div>
       `;
     }).join('');
 
     subjAverages.sort((a, b) => a.avg - b.avg);
-    const best = subjAverages;
+    const best = subjAverages[0];
     const worst = subjAverages[subjAverages.length - 1];
 
     barsHtml += `

@@ -54,10 +54,10 @@
     .container { max-width: 600px; margin: 0 auto; padding: 16px 0 90px 0; }
 
     /* Header */
-    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
-    .top-bar h2 { margin: 0; font-size: 22px; letter-spacing: 0.3px; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 6px; flex-wrap: wrap; }
+    .top-bar h2 { margin: 0; font-size: 21px; letter-spacing: 0.3px; }
     .coral-accent { color: var(--accent); text-shadow: 0 0 12px rgba(244, 63, 94, 0.4); }
-    .top-actions { display: flex; gap: 6px; }
+    .top-actions { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
 
     /* Term Switcher & Overall Stats */
     .term-bar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
@@ -75,19 +75,21 @@
     .summary-bar b { color: var(--text); font-size: 15px; }
 
     /* Inputs & Buttons */
-    input {
+    input, textarea {
       width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text);
       padding: 11px 13px; border-radius: 10px; font-size: 15px; margin-bottom: 12px; outline: none;
     }
-    input:focus { border-color: var(--accent); }
+    input:focus, textarea:focus { border-color: var(--accent); }
 
     button {
       background: var(--card); border: 1px solid var(--border); color: var(--text);
-      padding: 7px 11px; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer;
+      padding: 7px 10px; border-radius: 9px; font-size: 12px; font-weight: 600; cursor: pointer;
     }
     button:active { opacity: 0.7; }
     .btn-accent { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; }
     .btn-danger { color: #EF4444; border-color: rgba(239, 68, 68, 0.4); }
+    .btn-class { color: #38BDF8; border-color: rgba(56, 189, 248, 0.4); }
+    .btn-stats { color: #10B981; border-color: rgba(16, 185, 129, 0.4); }
 
     /* Subject Cards */
     .subject-card {
@@ -108,9 +110,10 @@
     /* Grade Chips */
     .grades-list { display: flex; flex-wrap: wrap; gap: 6px; min-height: 32px; align-items: center; margin-bottom: 10px; }
     .grade-chip {
-      width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      min-width: 30px; height: 30px; padding: 0 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 14px; cursor: pointer; background: var(--bg); border: 1px solid var(--border);
     }
+    .grade-chip sup { font-size: 9px; margin-left: 1px; }
     .g-1 { color: var(--g1); border-color: rgba(16, 185, 129, 0.45); }
     .g-2 { color: var(--g2); border-color: rgba(56, 189, 248, 0.45); }
     .g-3 { color: var(--g3); border-color: rgba(245, 158, 11, 0.45); }
@@ -118,11 +121,23 @@
     .g-5 { color: var(--g5); border-color: rgba(239, 68, 68, 0.45); }
 
     /* Quick Add Grade Buttons */
-    .quick-add-row { display: flex; gap: 6px; align-items: center; margin-bottom: 10px; }
+    .quick-add-row { display: flex; gap: 5px; align-items: center; margin-bottom: 10px; }
     .quick-label { font-size: 11px; color: var(--muted); margin-right: 2px; }
+    .weight-toggle {
+      padding: 6px 8px; font-size: 12px; font-weight: 800; background: var(--bg); color: var(--muted);
+    }
+    .weight-toggle.active {
+      border-color: var(--accent); color: var(--accent); background: rgba(244, 63, 94, 0.12);
+    }
     .add-g-btn {
       flex: 1; padding: 6px 0; text-align: center; font-weight: 800; font-size: 13px;
       background: var(--bg); border-radius: 8px;
+    }
+
+    /* Subject Notes */
+    .subject-note-box {
+      font-size: 12px; color: var(--muted); background: var(--bg); border: 1px solid var(--border);
+      padding: 7px 10px; border-radius: 8px; margin-bottom: 10px; white-space: pre-wrap;
     }
 
     .card-actions {
@@ -137,20 +152,33 @@
       padding: 14px 22px; font-size: 16px; font-weight: 800; box-shadow: 0 6px 20px rgba(0,0,0,0.45);
     }
 
-    /* Modal */
+    /* Modals */
     .modal-backdrop {
       position: fixed; inset: 0; background: rgba(15, 23, 42, 0.88);
       display: none; align-items: center; justify-content: center; padding: 16px; z-index: 50;
     }
     .modal {
       background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      width: 100%; max-width: 420px; padding: 20px;
+      width: 100%; max-width: 440px; padding: 20px; max-height: 90vh; overflow-y: auto;
     }
     .modal h3 { margin: 0 0 14px 0; color: var(--accent); }
-    .modal input[type="text"] { background: var(--bg); }
+    .modal input[type="text"], .modal textarea { background: var(--bg); }
     .field-label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 4px; }
     .modal-actions { display: flex; gap: 10px; margin-top: 14px; }
     .modal-actions button { flex: 1; padding: 11px; }
+
+    /* Stats Modal */
+    .stat-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px;
+    }
+    .stat-bar-bg {
+      flex: 1; height: 10px; background: var(--bg); border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+    }
+    .stat-bar-fill { height: 100%; border-radius: 6px; }
+    .stat-highlight {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px 12px; margin-top: 10px; display: flex; justify-content: space-between; font-size: 13px;
+    }
   </style>
 </head>
 <body>
@@ -159,6 +187,8 @@
   <div class="top-bar">
     <h2><span class="coral-accent">Gaben</span> Grade</h2>
     <div class="top-actions">
+      <button class="btn-class" id="classBtn" onclick="editClass()">Class: 5.A</button>
+      <button class="btn-stats" onclick="openStatsModal()">Stats</button>
       <button onclick="exportData()">Export</button>
       <button onclick="document.getElementById('importFile').click()">Import</button>
       <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display:none;" />
@@ -166,8 +196,8 @@
   </div>
 
   <div class="term-bar">
-    <button class="term-btn active" id="term1Btn" onclick="setTerm(1)">1st Term (Félév)</button>
-    <button class="term-btn" id="term2Btn" onclick="setTerm(2)">2nd Term (Félév)</button>
+    <button class="term-btn active" id="term1Btn" onclick="setTerm(1)">1st Term</button>
+    <button class="term-btn" id="term2Btn" onclick="setTerm(2)">2nd Term</button>
   </div>
 
   <div class="summary-bar">
@@ -175,7 +205,7 @@
     <span>Total Grades: <b id="totalGradesCount">0</b></span>
   </div>
 
-  <input type="text" id="searchInput" placeholder="Search subject..." oninput="renderSubjects()" />
+  <input type="text" id="searchInput" placeholder="Search subject or note..." oninput="renderSubjects()" />
 
   <div id="subjectsList"></div>
 </div>
@@ -189,13 +219,16 @@
     <input type="hidden" id="editSubjectId" />
 
     <label class="field-label">Subject Name *</label>
-    <input type="text" id="subjectNameInput" placeholder="e.g. Mathematics, English, Biology..." />
+    <input type="text" id="subjectNameInput" placeholder="e.g. Mathematics, Slovak, English..." />
 
     <label class="field-label">Subject Accent Color</label>
-    <div style="display:flex; align-items:center; gap:10px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
       <input type="color" id="subjectColorInput" value="#38BDF8" style="width:54px; height:42px; padding:2px; margin:0; cursor:pointer;" />
       <span style="font-size:13px; color:var(--muted);">Pick a color strip for this subject</span>
     </div>
+
+    <label class="field-label" id="noteModalLabel">Notes for 1st Term (Optional)</label>
+    <textarea id="subjectNoteInput" rows="3" placeholder="e.g. 3 - vybrané slová, exam topics..."></textarea>
 
     <div class="modal-actions">
       <button onclick="closeSubjectModal()">Cancel</button>
@@ -203,17 +236,44 @@
     </div>
   </div>
 </div>
+
+<!-- STATS MODAL -->
+<div id="statsModalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <h3 id="statsModalTitle">Term Statistics</h3>
+    <div id="statsContent"></div>
+    <div class="modal-actions">
+      <button class="btn-accent" onclick="document.getElementById('statsModalBackdrop').style.display='none'">Close</button>
+    </div>
+  </div>
+</div>
 <script>
-  const SUBJECTS_KEY = 'gaben_grade_subjects_v1';
+  const SUBJECTS_KEY = 'gaben_grade_subjects_v2';
+  const CLASS_KEY = 'gaben_grade_class_v1';
+
   let subjects = JSON.parse(localStorage.getItem(SUBJECTS_KEY) || '[]');
+  let className = localStorage.getItem(CLASS_KEY) || '5.A';
   let currentTerm = 1;
+  let weightMode = {}; // tracks 2x toggle per subject
 
   window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('classBtn').textContent = `Class: ${className}`;
     renderSubjects();
   });
 
   function saveAll() {
     localStorage.setItem(SUBJECTS_KEY, JSON.stringify(subjects));
+    localStorage.setItem(CLASS_KEY, className);
+  }
+
+  function editClass() {
+    const next = prompt('Enter Class / Grade level (e.g. 5.A, 6.B):', className);
+    if (!next) return;
+    const trimmed = next.trim();
+    if (!trimmed) return;
+    className = trimmed;
+    document.getElementById('classBtn').textContent = `Class: ${className}`;
+    saveAll();
   }
 
   function setTerm(term) {
@@ -226,13 +286,29 @@
   function getTermGrades(subject) {
     if (!subject.grades) subject.grades = { 1: [], 2: [] };
     if (!Array.isArray(subject.grades[currentTerm])) subject.grades[currentTerm] = [];
+    // Normalize legacy numbers to { val, w } objects
+    subject.grades[currentTerm] = subject.grades[currentTerm].map(g =>
+      typeof g === 'number' ? { val: g, w: 1 } : g
+    );
     return subject.grades[currentTerm];
+  }
+
+  function getTermNote(subject) {
+    if (!subject.notes) subject.notes = { 1: '', 2: '' };
+    return subject.notes[currentTerm] || '';
+  }
+
+  function toggleWeight(subjectId) {
+    weightMode[subjectId] = !weightMode[subjectId];
+    renderSubjects();
   }
 
   function addGrade(subjectId, gradeVal) {
     const subj = subjects.find(s => s.id === subjectId);
     if (!subj) return;
-    getTermGrades(subj).push(gradeVal);
+    const w = weightMode[subjectId] ? 2 : 1;
+    getTermGrades(subj).push({ val: gradeVal, w });
+    weightMode[subjectId] = false; // reset 2x after adding
     saveAll();
     renderSubjects();
   }
@@ -241,11 +317,31 @@
     const subj = subjects.find(s => s.id === subjectId);
     if (!subj) return;
     const grades = getTermGrades(subj);
-    const val = grades[gradeIdx];
-    if (!confirm(`Remove grade "${val}" from ${subj.name}?`)) return;
+    const g = grades[gradeIdx];
+    const label = g.w === 2 ? `${g.val} (2x)` : `${g.val}`;
+    if (!confirm(`Remove grade "${label}" from ${subj.name}?`)) return;
     grades.splice(gradeIdx, 1);
     saveAll();
     renderSubjects();
+  }
+
+  function calcSubjectAvg(grades) {
+    if (!grades.length) return null;
+    let sum = 0;
+    let totalW = 0;
+    grades.forEach(g => {
+      sum += g.val * (g.w || 1);
+      totalW += (g.w || 1);
+    });
+    return totalW > 0 ? sum / totalW : null;
+  }
+
+  function getAvgColor(avg) {
+    if (avg === null) return 'var(--muted)';
+    if (avg < 1.50) return 'var(--g1)';
+    if (avg < 2.50) return 'var(--g2)';
+    if (avg < 3.50) return 'var(--g3)';
+    return 'var(--g5)';
   }
 
   function moveSubject(id, direction) {
@@ -259,56 +355,72 @@
     saveAll();
     renderSubjects();
   }
-
   function renderSubjects() {
     const listEl = document.getElementById('subjectsList');
     const query = document.getElementById('searchInput').value.trim().toLowerCase();
 
-    // Calculate overall stats for current term
-    let allGradesSum = 0;
-    let allGradesCount = 0;
+    let totalWeightedSum = 0;
+    let totalWeight = 0;
+    let totalGradesCount = 0;
+
     subjects.forEach(s => {
       const gList = getTermGrades(s);
       gList.forEach(g => {
-        allGradesSum += g;
-        allGradesCount++;
+        const w = g.w || 1;
+        totalWeightedSum += g.val * w;
+        totalWeight += w;
+        totalGradesCount++;
       });
     });
 
-    document.getElementById('totalGradesCount').textContent = allGradesCount;
-    document.getElementById('overallAvg').textContent = allGradesCount > 0
-      ? (allGradesSum / allGradesCount).toFixed(2)
-      : '-';
+    document.getElementById('totalGradesCount').textContent = totalGradesCount;
+    const overallEl = document.getElementById('overallAvg');
+    if (totalWeight > 0) {
+      const ov = totalWeightedSum / totalWeight;
+      overallEl.textContent = ov.toFixed(2);
+      overallEl.style.color = getAvgColor(ov);
+    } else {
+      overallEl.textContent = '-';
+      overallEl.style.color = 'var(--text)';
+    }
 
-    const filtered = subjects.filter(s => s.name.toLowerCase().includes(query));
+    const filtered = subjects.filter(s => {
+      const note = getTermNote(s).toLowerCase();
+      return s.name.toLowerCase().includes(query) || note.includes(query);
+    });
 
     if (filtered.length === 0) {
-      listEl.innerHTML = `<p style="text-align:center; color: var(--muted); margin-top: 40px;">No subjects yet. Tap "+ Add Subject" to start!</p>`;
+      listEl.innerHTML = `<p style="text-align:center; color: var(--muted); margin-top: 40px;">No subjects found. Tap "+ Add Subject" to start!</p>`;
       return;
     }
 
     listEl.innerHTML = filtered.map(s => {
       const grades = getTermGrades(s);
-      const avg = grades.length > 0
-        ? (grades.reduce((a, b) => a + b, 0) / grades.length).toFixed(2)
-        : '-';
+      const avgNum = calcSubjectAvg(grades);
+      const avgText = avgNum !== null ? avgNum.toFixed(2) : '-';
+      const avgColor = getAvgColor(avgNum);
       const color = s.color || '#F43F5E';
+      const note = getTermNote(s);
+      const is2x = !!weightMode[s.id];
 
       const chipsHtml = grades.length > 0
-        ? grades.map((g, idx) => `<div class="grade-chip g-${g}" title="Tap to remove" onclick="removeGrade('${s.id}', ${idx})">${g}</div>`).join('')
+        ? grades.map((g, idx) => `<div class="grade-chip g-${g.val}" title="Tap to remove" onclick="removeGrade('${s.id}', ${idx})">${g.val}${g.w === 2 ? '<sup>2</sup>' : ''}</div>`).join('')
         : `<span style="font-size:12px; color:var(--muted);">No grades recorded yet</span>`;
+
+      const noteHtml = note ? `<div class="subject-note-box">${escapeHtml(note)}</div>` : '';
 
       return `
         <div class="subject-card" style="border-left-color: ${color};">
           <div class="card-header">
             <span class="subject-name" style="color: ${color};">${escapeHtml(s.name)}</span>
-            <span class="avg-badge">Avg: ${avg}</span>
+            <span class="avg-badge" style="color: ${avgColor}; border-color: ${avgColor}55;">Avg: ${avgText}</span>
           </div>
 
           <div class="grades-list">${chipsHtml}</div>
 
           <div class="quick-add-row">
             <span class="quick-label">+ Grade:</span>
+            <button class="weight-toggle ${is2x ? 'active' : ''}" onclick="toggleWeight('${s.id}')" title="Double weight (Exam)">2x</button>
             <button class="add-g-btn g-1" onclick="addGrade('${s.id}', 1)">1</button>
             <button class="add-g-btn g-2" onclick="addGrade('${s.id}', 2)">2</button>
             <button class="add-g-btn g-3" onclick="addGrade('${s.id}', 3)">3</button>
@@ -316,13 +428,15 @@
             <button class="add-g-btn g-5" onclick="addGrade('${s.id}', 5)">5</button>
           </div>
 
+          ${noteHtml}
+
           <div class="card-actions">
             <div style="display:flex; gap:5px;">
               <button onclick="moveSubject('${s.id}', -1)">↑</button>
               <button onclick="moveSubject('${s.id}', 1)">↓</button>
             </div>
             <div style="display:flex; gap:5px;">
-              <button onclick="openSubjectModal('${s.id}')">Edit</button>
+              <button onclick="openSubjectModal('${s.id}')">Edit / Note</button>
               <button class="btn-danger" onclick="deleteSubject('${s.id}')">Delete</button>
             </div>
           </div>
@@ -330,17 +444,81 @@
       `;
     }).join('');
   }
+
+  // Statistics Modal
+  function openStatsModal() {
+    const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    let totalGrades = 0;
+    const subjAverages = [];
+
+    subjects.forEach(s => {
+      const grades = getTermGrades(s);
+      grades.forEach(g => {
+        if (counts[g.val] !== undefined) counts[g.val]++;
+        totalGrades++;
+      });
+      const avg = calcSubjectAvg(grades);
+      if (avg !== null) {
+        subjAverages.push({ name: s.name, avg, color: s.color || '#F43F5E' });
+      }
+    });
+
+    document.getElementById('statsModalTitle').textContent = `Statistics — ${className} (${currentTerm === 1 ? '1st' : '2nd'} Term)`;
+
+    if (totalGrades === 0) {
+      document.getElementById('statsContent').innerHTML = `<p style="color:var(--muted); text-align:center;">No grades recorded in this term yet.</p>`;
+      document.getElementById('statsModalBackdrop').style.display = 'flex';
+      return;
+    }
+
+    const gradeColors = { 1: 'var(--g1)', 2: 'var(--g2)', 3: 'var(--g3)', 4: 'var(--g4)', 5: 'var(--g5)' };
+    let barsHtml = [1, 2, 3, 4, 5].map(num => {
+      const cnt = counts[num];
+      const pct = Math.round((cnt / totalGrades) * 100);
+      return `
+        <div class="stat-row">
+          <span style="width:24px; font-weight:800; color:${gradeColors[num]};">Grade ${num}</span>
+          <div class="stat-bar-bg">
+            <div class="stat-bar-fill" style="width:${pct}%; background:${gradeColors[num]};"></div>
+          </div>
+          <span style="width:55px; text-align:right; font-family:monospace;"><b>${cnt}</b> (${pct}%)</span>
+        </div>
+      `;
+    }).join('');
+
+    subjAverages.sort((a, b) => a.avg - b.avg);
+    const best = subjAverages;
+    const worst = subjAverages[subjAverages.length - 1];
+
+    barsHtml += `
+      <div class="stat-highlight">
+        <span style="color:var(--muted);">Best Subject:</span>
+        <span style="color:var(--g1); font-weight:700;">${escapeHtml(best.name)} (${best.avg.toFixed(2)})</span>
+      </div>
+      <div class="stat-highlight">
+        <span style="color:var(--muted);">Needs Focus:</span>
+        <span style="color:${getAvgColor(worst.avg)}; font-weight:700;">${escapeHtml(worst.name)} (${worst.avg.toFixed(2)})</span>
+      </div>
+    `;
+
+    document.getElementById('statsContent').innerHTML = barsHtml;
+    document.getElementById('statsModalBackdrop').style.display = 'flex';
+  }
+
   function openSubjectModal(id = null) {
     document.getElementById('editSubjectId').value = id || '';
-    document.getElementById('subjectModalTitle').textContent = id ? 'Edit Subject' : 'Add Subject';
+    document.getElementById('subjectModalTitle').textContent = id ? 'Edit Subject & Note' : 'Add Subject';
+    document.getElementById('noteModalLabel').textContent = `Notes for ${currentTerm === 1 ? '1st' : '2nd'} Term (Optional)`;
 
     if (id) {
       const subj = subjects.find(s => s.id === id);
       document.getElementById('subjectNameInput').value = subj.name;
       document.getElementById('subjectColorInput').value = subj.color || '#38BDF8';
+      document.getElementById('subjectNoteInput').value = getTermNote(subj);
     } else {
       document.getElementById('subjectNameInput').value = '';
       document.getElementById('subjectColorInput').value = '#38BDF8';
+      document.getElementById('subjectNoteInput').value = '';
     }
     document.getElementById('subjectModalBackdrop').style.display = 'flex';
   }
@@ -355,19 +533,25 @@
 
     const id = document.getElementById('editSubjectId').value;
     const color = document.getElementById('subjectColorInput').value;
+    const note = document.getElementById('subjectNoteInput').value.trim();
 
     if (id) {
       const subj = subjects.find(s => s.id === id);
       if (subj) {
         subj.name = name;
         subj.color = color;
+        if (!subj.notes) subj.notes = { 1: '', 2: '' };
+        subj.notes[currentTerm] = note;
       }
     } else {
+      const notes = { 1: '', 2: '' };
+      notes[currentTerm] = note;
       subjects.push({
         id: Date.now().toString(),
         name,
         color,
-        grades: { 1: [], 2: [] }
+        grades: { 1: [], 2: [] },
+        notes
       });
     }
 
@@ -387,18 +571,18 @@
 
   // Export & Import
   function exportData() {
-    const payload = JSON.stringify({ subjects }, null, 2);
+    const payload = JSON.stringify({ subjects, className }, null, 2);
     const blob = new Blob([payload], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `gaben-grade-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.download = `gaben-grade-${className}-${new Date().toISOString().slice(0,10)}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }
 
   function importData(event) {
-    const file = event.target.files[0];
+    const file = event.target.files;
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -406,6 +590,10 @@
         const parsed = JSON.parse(e.target.result);
         if (Array.isArray(parsed.subjects)) {
           subjects = parsed.subjects;
+          if (parsed.className) {
+            className = parsed.className;
+            document.getElementById('classBtn').textContent = `Class: ${className}`;
+          }
           saveAll();
           renderSubjects();
           alert('Grades backup imported successfully!');

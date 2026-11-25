@@ -445,7 +445,7 @@
     }).join('');
   }
 
-   // Statistics Modal
+  // Statistics Modal
   function openStatsModal() {
     const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let totalGrades = 0;
@@ -472,11 +472,11 @@
     }
 
     const gradeColors = { 1: 'var(--g1)', 2: 'var(--g2)', 3: 'var(--g3)', 4: 'var(--g4)', 5: 'var(--g5)' };
-    const gradeNumbers =;
-    let barsHtml = gradeNumbers.map(num => {
+    let barsHtml = '';
+    for (let num = 1; num <= 5; num++) {
       const cnt = counts[num];
       const pct = Math.round((cnt / totalGrades) * 100);
-      return `
+      barsHtml += `
         <div class="stat-row">
           <span style="width:58px; font-weight:800; color:${gradeColors[num]};">Grade ${num}</span>
           <div class="stat-bar-bg">
@@ -485,11 +485,11 @@
           <span style="width:65px; text-align:right; font-family:monospace;"><b>${cnt}</b> (${pct}%)</span>
         </div>
       `;
-    }).join('');
+    }
 
     subjAverages.sort((a, b) => a.avg - b.avg);
-    const best = subjAverages[0];
-    const worst = subjAverages[subjAverages.length - 1];
+    const best = subjAverages.at(0);
+    const worst = subjAverages.at(-1);
 
     barsHtml += `
       <div class="stat-highlight">
@@ -505,6 +505,7 @@
     document.getElementById('statsContent').innerHTML = barsHtml;
     document.getElementById('statsModalBackdrop').style.display = 'flex';
   }
+
 
   function openSubjectModal(id = null) {
     document.getElementById('editSubjectId').value = id || '';
